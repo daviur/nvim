@@ -7,9 +7,7 @@
 let mapleader =" "
 
 call plug#begin('~/.config/nvim/plugged')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	Plug 'Shougo/deoplete-clangx'
-	Plug 'Shougo/neco-vim'
+	Plug 'valloric/youcompleteme'		" Code completion engine
 	Plug 'scrooloose/nerdtree'		" File navigator
 	Plug 'Xuyuanp/nerdtree-git-plugin'	" Git support for NERDTree
 	Plug 'scrooloose/syntastic' 		" Syntax checking hacks
@@ -27,6 +25,10 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'christoomey/vim-tmux-navigator'	" Seamless navigation between tmux panes and vim splits
 	Plug 'skywind3000/asyncrun.vim'		" Enable running shell commands in background and get output in real time
 	Plug 'altercation/vim-colors-solarized'	" Solarized colorscheme
+	Plug 'octol/vim-cpp-enhanced-highlight'	" C++ enhanced highlighting
+	Plug 'craigemery/vim-autotag'		" Manage CTAGS
+	Plug 'junegunn/fzf'			" Command-line fuzzy finder
+	Plug 'scrooloose/nerdcommenter'		" Comment functions
 call plug#end()
 
 set bg=light
@@ -40,7 +42,6 @@ set clipboard=unnamedplus
 	syntax on
 	set encoding=utf-8
 	set number relativenumber
-	let g:deoplete#enable_at_startup = 1
 	set background=dark
 	colorscheme solarized
 
@@ -139,6 +140,15 @@ set clipboard=unnamedplus
 	let g:airline_symbols.branch = ''
 	let g:airline_symbols.readonly = ''
 	let g:airline_symbols.linenr = ''
+
+" C++ highlighting
+	let g:cpp_class_scope_highlight = 1
+	let g:cpp_member_variable_highlight = 1
+	let g:cpp_class_decl_highlight = 1
+	let g:cpp_experimental_simple_template_highlight = 1
+	" let g:cpp_experimental_template_highlight = 1
+	let g:cpp_concepts_highlight = 1
+	" let g:cpp_no_function_highlight = 1
 
  "____        _                  _
 "/ ___| _ __ (_)_ __  _ __   ___| |_ ___
