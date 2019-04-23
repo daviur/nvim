@@ -63,7 +63,7 @@ set clipboard=unnamedplus
 " Nerd tree
 	map <C-n> :NERDTreeToggle<CR>
 	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-	let NERDTreeIgnore = ['\.pyc', '\.o', '\.lo']
+	let NERDTreeIgnore = ['\.pyc', '\.o', '\.lo', '\.so', '\.ko']
 
 " Check file in shellcheck:
 	map <leader>s :!clear && shellcheck %<CR>
