@@ -74,7 +74,7 @@ set clipboard=unnamedplus
     map <leader>s :!clear && shellcheck %<CR>
 
 " Replace all is aliased to S.
-"   nnoremap S :%s//g<Left><Left>
+    nnoremap S :%s//g<Left><Left>
 
 " Compile document, be it groff/LaTeX/markdown/etc.
     map <leader>c :w! \| !compiler <c-r>%<CR>
