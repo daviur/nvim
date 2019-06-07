@@ -27,7 +27,8 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'altercation/vim-colors-solarized' " Solarized colorscheme
     Plug 'octol/vim-cpp-enhanced-highlight' " C++ enhanced highlighting
     Plug 'craigemery/vim-autotag'           " Manage CTAGS
-    Plug 'junegunn/fzf'                     " Command-line fuzzy finder
+    Plug 'junegunn/fzf', { 'dir': '~/.programs/fzf', 'do': './install --all' } " Command-line fuzzy finder
+    Plug 'junegunn/fzf.vim'
     Plug 'scrooloose/nerdcommenter'         " Comment functions
     " Plug 'kana/vim-textobj-entire'      " Add ae/ie motions to interact with entire buffer
 call plug#end()
@@ -64,6 +65,9 @@ set clipboard=unnamedplus
 
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
     set splitbelow splitright
+
+" FZF
+    let g:fzf_command_prefix = 'Fzf'
 
 " Nerd tree
     map <C-n> :NERDTreeToggle<CR>
