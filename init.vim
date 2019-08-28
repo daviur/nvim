@@ -7,29 +7,29 @@
 let mapleader =" "
 
 call plug#begin('~/.config/nvim/plugged')
-    Plug 'valloric/youcompleteme'                                                   " Code completion engine
-    Plug 'scrooloose/nerdtree'                                                      " File navigator
-    Plug 'Xuyuanp/nerdtree-git-plugin'                                              " Git support for NERDTree
-    Plug 'scrooloose/syntastic'                                                     " Syntax checking hacks
-    Plug 'junegunn/goyo.vim'                                                        " Makes text more readable
-    Plug 'PotatoesMaster/i3-vim-syntax'                                             " Vim syntax highlighting for i3
-    Plug 'tpope/vim-fugitive'                                                       " Git wrapper
-    Plug 'airblade/vim-gitgutter'                                                   " Show git diff in the gutter
-    Plug 'LukeSmithxyz/vimling'                                                     " Enabling deadkeys e.g. 'a
+    Plug 'valloric/youcompleteme'           " Code completion engine
+    Plug 'scrooloose/nerdtree'              " File navigator
+    Plug 'Xuyuanp/nerdtree-git-plugin'      " Git support for NERDTree
+    Plug 'scrooloose/syntastic'             " Syntax checking hacks
+    Plug 'junegunn/goyo.vim'                " Makes text more readable
+    Plug 'PotatoesMaster/i3-vim-syntax'     " Vim syntax highlighting for i3
+    Plug 'tpope/vim-fugitive'               " Git wrapper
+    Plug 'airblade/vim-gitgutter'           " Show git diff in the gutter
+    Plug 'LukeSmithxyz/vimling'             " Enabling deadkeys e.g. 'a
     Plug 'vimwiki/vimwiki'
-    Plug 'vim-airline/vim-airline'                                                  " A light status/tabline
-    Plug 'vim-airline/vim-airline-themes'                                           " Themes for vim-airline
-    Plug 'tpope/vim-commentary'                                                     " Use gcc or gc to comment
-    Plug 'tpope/vim-surround'                                                       " Quoting/parenthesizing made simple
-    Plug 'christoomey/vim-tmux-navigator'                                           " Seamless navigation between tmux panes and vim splits
-    Plug 'skywind3000/asyncrun.vim'                                                 " Enable running shell commands in background and get output in real time
-    Plug 'altercation/vim-colors-solarized'                                         " Solarized colorscheme
-    Plug 'octol/vim-cpp-enhanced-highlight'                                         " C++ enhanced highlighting
-    Plug 'craigemery/vim-autotag'                                                   " Manage CTAGS
-    Plug 'junegunn/fzf'                                                             " Command-line fuzzy finder
+    Plug 'vim-airline/vim-airline'          " A light status/tabline
+    Plug 'vim-airline/vim-airline-themes'   " Themes for vim-airline
+    Plug 'tpope/vim-commentary'             " Use gcc or gc to comment
+    Plug 'tpope/vim-surround'               " Quoting/parenthesizing made simple
+    Plug 'christoomey/vim-tmux-navigator'   " Seamless navigation between tmux panes and vim splits
+    Plug 'skywind3000/asyncrun.vim'         " Enable running shell commands in background and get output in real time
+    Plug 'altercation/vim-colors-solarized' " Solarized colorscheme
+    Plug 'octol/vim-cpp-enhanced-highlight' " C++ enhanced highlighting
+    Plug 'craigemery/vim-autotag'           " Manage CTAGS
+    Plug 'junegunn/fzf'                     " Command-line fuzzy finder
     Plug 'junegunn/fzf.vim'
-    Plug 'scrooloose/nerdcommenter'                                                 " Comment functions
-    " Plug 'kana/vim-textobj-entire'                                                  " Add ae/ie motions to interact with entire buffer
+    Plug 'scrooloose/nerdcommenter'         " Comment functions
+    " Plug 'kana/vim-textobj-entire'          " Add ae/ie motions to interact with entire buffer
 call plug#end()
 
 set bg=light
@@ -130,7 +130,7 @@ set clipboard=unnamedplus
     " CTRL-N and CTRL-P will be automatically bound to next-history and
     " previous-history instead of down and up. If you don't like the change,
     " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-    " let g:fzf_history_dir = '~/.local/share/fzf-history'
+    let g:fzf_history_dir = '~/.local/share/fzf-history'
 
     " [Buffers] Jump to the existing window if possible
     " let g:fzf_buffers_jump = 1
