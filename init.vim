@@ -65,6 +65,15 @@ set clipboard=unnamedplus
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
     set splitbelow splitright
 
+" Autoclosing
+    inoremap " ""<left>
+    inoremap ' ''<left>
+    inoremap ( ()<left>
+    inoremap [ []<left>
+    inoremap { {}<left>
+    inoremap {<CR> {<CR>}<ESC>O
+    inoremap {;<CR> {<CR>};<ESC>O
+
 " FZF
     " Hide statusline of terminal buffer
     autocmd! FileType fzf
