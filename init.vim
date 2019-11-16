@@ -8,10 +8,10 @@ let mapleader =" "
 
 call plug#begin('~/.config/nvim/plugged')
     Plug 'valloric/youcompleteme'           " Code completion engine
+    Plug 'scrooloose/syntastic'             " Syntax checking
     Plug 'scrooloose/nerdtree'              " File navigator
     Plug 'Xuyuanp/nerdtree-git-plugin'      " Git support for NERDTree
     Plug 'scrooloose/syntastic'             " Syntax checking hacks
-    Plug 'junegunn/goyo.vim'                " Makes text more readable
     Plug 'PotatoesMaster/i3-vim-syntax'     " Vim syntax highlighting for i3
     Plug 'tpope/vim-fugitive'               " Git wrapper
     Plug 'airblade/vim-gitgutter'           " Show git diff in the gutter
@@ -25,60 +25,100 @@ call plug#begin('~/.config/nvim/plugged')
     Plug 'skywind3000/asyncrun.vim'         " Enable running shell commands in background and get output in real time
     Plug 'altercation/vim-colors-solarized' " Solarized colorscheme
     Plug 'octol/vim-cpp-enhanced-highlight' " C++ enhanced highlighting
+    Plug 'majutsushi/tagbar'                " Tag bar
     Plug 'craigemery/vim-autotag'           " Manage CTAGS
     Plug 'junegunn/fzf'                     " Command-line fuzzy finder
     Plug 'junegunn/fzf.vim'
     Plug 'scrooloose/nerdcommenter'         " Comment functions
+    Plug 'rust-lang/rust.vim'               " Rust file detection, syntax highlighting, formatting, and more
     " Plug 'kana/vim-textobj-entire'          " Add ae/ie motions to interact with entire buffer
 call plug#end()
 
-set bg=light
-set mouse=a
-set nohlsearch
-set clipboard=unnamedplus
+" Generics
+    " Some basics
+        set bg=light
+        set mouse=a
+        set nohlsearch
+        set clipboard=unnamedplus
+        set nocompatible
+        set nrformats-=octal    " Treat all numbers as decimals
+        filetype plugin on
+        syntax on
+        set encoding=utf-8
+        set number relativenumber
+        set background=dark
+        set expandtab           " Tabs expanded to spaces
+        set tabstop=4           " Spaces per Tab
+        set shiftwidth=4        " Spaces per Shift
+        colorscheme solarized
 
-" Some basics:
-    set nocompatible
-    set nrformats-=octal    " Treat all numbers as decimals
-    filetype plugin on
-    syntax on
-    set encoding=utf-8
-    set number relativenumber
-    set background=dark
-    set expandtab           " Tabs expanded to spaces
-    set tabstop=4           " Spaces per Tab
-    set shiftwidth=4        " Spaces per Shift
-    colorscheme solarized
+    " Folding settings
+        set foldmethod=indent   "fold based on indent
+        set foldnestmax=10      "deepest fold is 10 levels
+        set nofoldenable        "dont fold by default
+        set foldlevel=1         "this is just what i use
 
-"folding settings
-    set foldmethod=indent   "fold based on indent
-    set foldnestmax=10      "deepest fold is 10 levels
-    set nofoldenable        "dont fold by default
-    set foldlevel=1         "this is just what i use
+    " Enable autocompletion:
+        set wildmode=longest,list,full
 
-" Enable autocompletion:
-    set wildmode=longest,list,full
+    " Disables automatic commenting on newline:
+        autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Disables automatic commenting on newline:
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    " Spell-check set to <leader>o, 'o' for 'orthography':
+        map <leader>o :setlocal spell! spelllang=en_us<CR>
 
-" Goyo
-    map <leader>g :Goyo \| set linebreak<CR>
+    " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
+        set splitbelow splitright
 
-" Spell-check set to <leader>o, 'o' for 'orthography':
-    map <leader>o :setlocal spell! spelllang=en_us<CR>
+    " Check file in shellcheck:
+        map <leader>s :!clear && shellcheck %<CR>
 
-" Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
-    set splitbelow splitright
+    " Replace all is aliased to S.
+        nnoremap S :%s//g<Left><Left>
 
-" Autoclosing
-    inoremap " ""<left>
-    inoremap ' ''<left>
-    inoremap ( ()<left>
-    inoremap [ []<left>
-    inoremap { {}<left>
-    inoremap {<CR> {<CR>}<ESC>O
-    inoremap {;<CR> {<CR>};<ESC>O
+    " Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
+        vnoremap <C-c> "+y
+        map <C-p> "+P
+
+    " Automatically deletes all trailing whitespace on save.
+        autocmd BufWritePre * %s/\s\+$//e
+
+    " When shortcut files are updated, renew bash and ranger configs with new material:
+        autocmd BufWritePost ~/.bmdirs,~/.bmfiles !shortcuts
+
+    " Run xrdb whenever Xdefaults or Xresources are updated.
+        autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
+
+    " Navigating with guides
+        inoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
+        vnoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
+        map <Space><Tab> <Esc>/<++><Enter>"_c4l
+
+    " Shortcutting saving and quitting
+        map <C-s> :w<CR>
+        map <C-q> :q!<CR>
+
+    " Autoclosing
+        inoremap " ""<left>
+        inoremap ' ''<left>
+        inoremap ( ()<left>
+        inoremap [ []<left>
+        inoremap { {}<left>
+        inoremap {<CR> {<CR>}<ESC>O
+        inoremap {;<CR> {<CR>};<ESC>O
+
+" Syntastic
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_auto_loc_list = 1
+    let g:syntastic_check_on_open = 1
+    let g:syntastic_check_on_wq = 0
+
+" Tagbar
+    nmap <F8> :TagbarToggle<CR>
 
 " FZF
     " Hide statusline of terminal buffer
@@ -164,60 +204,14 @@ set clipboard=unnamedplus
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     let NERDTreeIgnore = ['\.pyc', '\.o', '\.lo', '\.so', '\.ko']
 
-" Check file in shellcheck:
-    map <leader>s :!clear && shellcheck %<CR>
-
-" Replace all is aliased to S.
-    nnoremap S :%s//g<Left><Left>
-
-" Compile document, be it groff/LaTeX/markdown/etc.
-    map <leader>c :w! \| !compiler <c-r>%<CR>
-
-" Open corresponding .pdf/.html or preview
-    map <leader>p :!opout <c-r>%<CR><CR>
-
-" Ensure files are read as what I want:
-    let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-    let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
-    autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-    autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
-    autocmd BufRead,BufNewFile *.tex set filetype=tex
-
-" Copy selected text to system clipboard (requires gvim/nvim/vim-x11 installed):
-    vnoremap <C-c> "+y
-    map <C-p> "+P
-
-" Enable Goyo by default for mutt writting
-    " Goyo's width will be the line limit in mutt.
-    autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-    autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo
-
-" Automatically deletes all trailing whitespace on save.
-    autocmd BufWritePre * %s/\s\+$//e
-
-" When shortcut files are updated, renew bash and ranger configs with new material:
-    autocmd BufWritePost ~/.bmdirs,~/.bmfiles !shortcuts
-
-" Run xrdb whenever Xdefaults or Xresources are updated.
-    autocmd BufWritePost ~/.Xresources,~/.Xdefaults !xrdb %
-
-" Navigating with guides
-    inoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
-    vnoremap <Space><Tab> <Esc>/<++><Enter>"_c4l
-    map <Space><Tab> <Esc>/<++><Enter>"_c4l
-
-" Shortcutting saving and quitting
-    map <C-s> :w<CR>
-    map <C-q> :q!<CR>
-
-" Air-line
+" Airline
     let g:airline_powerline_fonts = 1
 
     if !exists('g:airline_symbols')
         let g:airline_symbols = {}
     endif
 
-" Unicode symbols
+    " Unicode symbols
     let g:airline_left_sep = '»'
     let g:airline_left_sep = '▶'
     let g:airline_right_sep = '«'
@@ -231,7 +225,7 @@ set clipboard=unnamedplus
     let g:airline_symbols.paste = '∥'
     let g:airline_symbols.whitespace = 'Ξ'
 
-" Airline symbols
+    " Airline symbols
     let g:airline_left_sep = ''
     let g:airline_left_alt_sep = ''
     let g:airline_right_sep = ''
@@ -240,7 +234,7 @@ set clipboard=unnamedplus
     let g:airline_symbols.readonly = ''
     let g:airline_symbols.linenr = ''
 
-" C++ highlighting
+    " C++ highlighting
     let g:cpp_class_scope_highlight = 1
     let g:cpp_member_variable_highlight = 1
     let g:cpp_class_decl_highlight = 1
